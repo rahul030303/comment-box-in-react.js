@@ -7,9 +7,9 @@ class Comment extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            currComment = "hello",
-            comment = [],
-            addReply = false
+            currComment: "hello",
+            comment: [],
+            addReply: false
         }
     }
 
@@ -24,6 +24,7 @@ class Comment extends React.Component{
 
     handleSubmit = () =>{
         const comments = this.state.comment;
+        comments.push(this.state.currComment);
         this.setState({
             comment:comments
         })
@@ -39,7 +40,8 @@ class Comment extends React.Component{
         return(
             <>
                 <form onSubmit = {this.handleSubmit} className = "comment-box">
-                    <input type = "text" onChange = {()=>this.handleChange()} className = "inputCmt" name = "commentInput" placeholder = "Add a comment" value = {this.state.currComment} /> 
+                    <input type = "text" defaultValue = {this.state.currComment} value = {this.state.currComment} onChange = {()=>this.handleChange()} className = "inputCmt" name = "commentInput" placeholder = "Add a comment"  /> 
+                    <br/> <br />
                     <button type = "submit">Add</button>
                 </form>
 
@@ -49,8 +51,8 @@ class Comment extends React.Component{
                     
                 this.state.comment.map((commentData,index) => {
                     return(
-                        <>
-                            <li>{commentData}</li>
+                        <div key = {index}>
+                            <li id = {index}>{commentData}</li>
                             <button onClick = {this.replyTo}>Reply</button>
 
                             {
@@ -63,7 +65,7 @@ class Comment extends React.Component{
                             }
                         
                         
-                            </>
+                            </div>
                        
                     )
                 } )    
